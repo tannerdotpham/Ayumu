@@ -6,6 +6,21 @@ import Messages from "@/components/Messages";
 import Recorder, { mimeType } from "@/components/Recorder";
 import { useRef } from "react";
 import { useFormState } from "react-dom";
+import transcript from '@/actions/transcript'
+
+const initialState =
+{
+  sender: '',
+  response: '',
+  id: ''
+}
+
+export type Message =
+{
+  sender: string
+  response: string
+  id: string
+}
 
 export default function Home() {
   const fileRef = useRef<HTMLInputElement | null>(null);
@@ -47,11 +62,10 @@ export default function Home() {
       <form className="flex flex-col bg-black">
         <div className="flex-1 bg-gradient-to-b from-gray-950">
           <Messages />
-          
         </div>
 
         <input type="file" name='audio' hidden ref={fileRef}/>
-        <button type="submit" hidden name='submit' ref={submitButtonRef}/>
+        <button type="submit" hidden ref={submitButtonRef}/>
         <div className="fixed bottom-0 w-full overflow-hidden bg-black rounded=t-3xl">
           <Recorder uploadAudio={uploadAudio}/>
 

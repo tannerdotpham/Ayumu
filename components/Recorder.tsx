@@ -114,7 +114,7 @@ function Recorder({uploadAudio}: { uploadAudio: (blob: Blob) => void}) {
           onClick={stopRec}
           priority={true}
           alt='Recording'
-          className='grayscale cursor-pointer hover:scale-110 duration-150 transition-all ease-in-out'
+          className='assistant cursor-pointer hover:scale-110 duration-150 transition-all ease-in-out'
         />
       )}
     

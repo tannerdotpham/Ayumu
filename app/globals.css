@@ -5,7 +5,12 @@
 {
   .assistant
   {
-    @apply h-40 w-40 object-contain
+    @apply h-50 w-50 object-contain
+  }
+
+  .message
+  {
+    @apply bg-gray-800 text-white p-4 rounded-lg w-fit
   }
 }
 
