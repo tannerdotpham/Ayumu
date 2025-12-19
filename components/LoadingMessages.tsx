@@ -5,7 +5,13 @@ import {BeatLoader} from 'react-spinners'
 function LoadingMessages()
 {
     const {pending} = useFormStatus()
-    return <div>LoadingMessages</div>
+    return (
+    pending && (
+    <p className="message ml-auto">
+        <BeatLoader/>
+    </p>
+    )
+)
 }
 
 export default LoadingMessages
