@@ -6,6 +6,7 @@ import Messages from "@/components/Messages";
 import Recorder, { mimeType } from "@/components/Recorder";
 import { useRef, useState } from "react";
 import { useFormState } from "react-dom";
+import Osaka from '@/img/image.png'
 
 const initialState =
 {
@@ -53,14 +54,14 @@ export default function Home() {
       <header className="flex justify-between fixed top-0 text-white w-full p-5">
         <Image 
           alt="Logo"
-          src="https://i.imgur.com/cwGu448.jpeg" 
+          src={Osaka} 
           height={50} 
           width={50}
         />
 
         <SettingsIcon 
           size={40}
-          className="p-2 m-2 rounded-full cursor-pointer bg-white text-black transition-all ease-in-out duration-150 hover:bg-purple-500 hover:text-white"
+          className="p-2 m-2 rounded-full cursor-pointer bg-gray-900 text-white  transition-all ease-in-out duration-150 hover:bg-black hover:text-white"
         />
       </header>
       {/* Form */}
