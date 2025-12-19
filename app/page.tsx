@@ -6,7 +6,6 @@ import Messages from "@/components/Messages";
 import Recorder, { mimeType } from "@/components/Recorder";
 import { useRef, useState } from "react";
 import { useFormState } from "react-dom";
-import transcript from '@/actions/transcript'
 
 const initialState =
 {
@@ -35,7 +34,18 @@ export default function Home() {
       
       const res = await fetch('/api/voice', { method: 'POST', body: form });
       const data = await res.json();
-      console.log(data);
+      if (data.error) {
+        console.error(data.error);
+        return;
+      }
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          sender: data.text ?? "",
+          response: data.reply ?? "",
+        },
+      ]);
     }
   return (
     <main className="bg-black h-screen overflow=y=auto">
