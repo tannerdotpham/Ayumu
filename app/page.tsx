@@ -24,29 +24,37 @@ export type Message =
 
 export default function Home() {
   const fileRef = useRef<HTMLInputElement | null>(null);
-  const submitButtonRef = useRef<HTMLInputElement | null>(null);
+  const submitButtonRef = useRef<HTMLButtonElement | null>(null);
   // const [state, formAction] = useFormState(run, initialState)
   const [messages, setMessages] = useState<Message[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const uploadAudio = async (blob: Blob) => 
     {
-      const form = new FormData();
-      form.append('file', blob, 'audio.webm');
-      
-      const res = await fetch('/api/voice', { method: 'POST', body: form });
-      const data = await res.json();
-      if (data.error) {
-        console.error(data.error);
-        return;
+      setLoading(true);
+      try {
+        const form = new FormData();
+        form.append('file', blob, 'audio.webm');
+        
+        const res = await fetch('/api/voice', { method: 'POST', body: form });
+        const data = await res.json();
+        if (data.error) {
+          console.error(data.error);
+          return;
+        }
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: crypto.randomUUID(),
+            sender: data.text ?? "",
+            response: data.reply ?? "",
+          },
+        ]);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          sender: data.text ?? "",
-          response: data.reply ?? "",
-        },
-      ]);
     }
   return (
     <main className="bg-black h-screen overflow=y=auto">
@@ -68,13 +76,13 @@ export default function Home() {
 
       <form className="flex flex-col bg-black">
         <div className="flex-1 bg-gradient-to-b from-gray-950">
-          <Messages messages={messages}/>
+          <Messages messages={messages} loading={loading}/>
         </div>
 
         <input type="file" name='audio' hidden ref={fileRef}/>
         <button type="submit" hidden ref={submitButtonRef}/>
         <div className="fixed bottom-0 w-full overflow-hidden bg-black rounded=t-3xl">
-          <Recorder uploadAudio={uploadAudio}/>
+          <Recorder uploadAudio={uploadAudio} loading={loading}/>
 
           {/* Voice Synthesizer - voice of Siri */}
 

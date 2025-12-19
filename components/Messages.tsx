@@ -2,23 +2,24 @@ import React from 'react'
 import { ChevronDownCircle } from 'lucide-react'
 import { Message } from '@/app/page'
 import LoadingMessages from './LoadingMessages'
+
 interface Props
 {
   messages: Message[]
+  loading?: boolean
 }
 
-function Messages({messages=[]}: Props) 
+function Messages({messages=[], loading=false}: Props) 
 {
   return (
-    <div className={`flex flex-col min-h-screen p-5 pt-20 ${messages.length > 0 ? "pb-96" : "pb-45"}`}>
-      <div className='max-w-3xl mx-auto'>
-
-      </div>
-      <LoadingMessages/>      
+    <div className={`flex flex-col min-h-screen p-5 pt-20 ${messages.length > 0 ? "pb-96" : "pb-45"}`}>     
       {!messages.length && (
         <div className='flex flex-col space-y-10 flex-1 items-center justify-end pr-1'>
         <p className='text-gray-500 animate-pulse'>Start a conversation!</p>
         <ChevronDownCircle size={64} className='animate-bounce text-gray-500'/>
+        <LoadingMessages loading={loading} color="#ffffff" /> 
+        <div className='max-w-3xl mx-auto'>
+        </div>
       </div>
       )}
 
@@ -31,7 +32,7 @@ function Messages({messages=[]}: Props)
               </p>
             </div>
 
-            <div className='pr-48'>
+          <div className='pr-48'>
               <p className='message bg-gray-800 rounded-bl-none'>
                 {message.response}
               </p>
@@ -39,6 +40,11 @@ function Messages({messages=[]}: Props)
           </div>
         ))}
       </div>
+      {messages.length > 0 && (
+        <div className='mt-2 flex'>
+          <LoadingMessages loading={loading} color="#ffffff" />
+        </div>
+      )}
     </div>
   )
 }

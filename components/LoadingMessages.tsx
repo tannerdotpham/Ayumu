@@ -1,17 +1,13 @@
 'use client'
-import { useFormStatus } from "react-dom"
+
 import {BeatLoader} from 'react-spinners'
 
-function LoadingMessages()
-{
-    const {pending} = useFormStatus()
-    return (
-    pending && (
+function LoadingMessages({ loading, color = '#fff' }: { loading?: boolean; color?: string }) {
+  return loading ? (
     <p className="message ml-auto">
-        <BeatLoader/>
+      <BeatLoader color={color} size={10} />
     </p>
-    )
-)
+  ) : null;
 }
 
 export default LoadingMessages

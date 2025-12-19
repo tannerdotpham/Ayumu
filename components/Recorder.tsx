@@ -2,13 +2,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import activeSiri from '@/img/siri.gif'
 import inactiveSiri from '@/img/inactive.png'
-import { useFormStatus } from 'react-dom'
 
 export const mimeType = 'audio/webm'
 
-function Recorder({uploadAudio}: { uploadAudio: (blob: Blob) => void}) {
+function Recorder({uploadAudio, loading}: { uploadAudio: (blob: Blob) => void, loading?: boolean}) {
   const mediaRecorder = useRef<MediaRecorder | null>(null)
-  const {pending} = useFormStatus()
+  const pending = loading ?? false
   const [permission, setPermission] = useState(false)
   const [stream, setStream] = useState<MediaStream | null>(null)
   const [recordingStatus, setRecordingStatus] = useState('inactive')
