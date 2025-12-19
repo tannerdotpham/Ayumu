@@ -26,20 +26,14 @@ export default function Home() {
   const fileRef = useRef<HTMLInputElement | null>(null);
   const submitButtonRef = useRef<HTMLInputElement | null>(null);
   // const [state, formAction] = useFormState(run, initialState)
-  const uploadAudio = (blob: Blob) => 
+  const uploadAudio = async (blob: Blob) => 
     {
-      const file = new File([blob], 'audio.webm', {type: mimeType})
-
-      if (fileRef.current)
-      {
-        const dataTransfer = new DataTransfer()
-        dataTransfer.items.add(file)
-
-        if (submitButtonRef.current)
-        {
-          submitButtonRef.current.click()
-        }
-      }
+      const form = new FormData();
+      form.append('file', blob, 'audio.webm');
+      
+      const res = await fetch('/api/voice', { method: 'POST', body: form });
+      const data = await res.json();
+      console.log(data);
     }
   return (
     <main className="bg-black h-screen overflow=y=auto">
