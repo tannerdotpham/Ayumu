@@ -4,7 +4,7 @@ import Image from "next/image";
 import { SettingsIcon } from "lucide-react";
 import Messages from "@/components/Messages";
 import Recorder, { mimeType } from "@/components/Recorder";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useFormState } from "react-dom";
 import transcript from '@/actions/transcript'
 
@@ -26,6 +26,8 @@ export default function Home() {
   const fileRef = useRef<HTMLInputElement | null>(null);
   const submitButtonRef = useRef<HTMLInputElement | null>(null);
   // const [state, formAction] = useFormState(run, initialState)
+  const [messages, setMessages] = useState<Message[]>([]);
+
   const uploadAudio = async (blob: Blob) => 
     {
       const form = new FormData();
@@ -55,7 +57,7 @@ export default function Home() {
 
       <form className="flex flex-col bg-black">
         <div className="flex-1 bg-gradient-to-b from-gray-950">
-          <Messages />
+          <Messages messages={messages}/>
         </div>
 
         <input type="file" name='audio' hidden ref={fileRef}/>
