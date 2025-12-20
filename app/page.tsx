@@ -60,7 +60,7 @@ export default function Home() {
   return (
     <main className="bg-black h-screen flex flex-col overflow-hidden">
       {/* Header */}
-      <header className="flex justify-between fixed top-0 text-white w-full p-5 z-10 bg-black">
+      <header className="flex justify-between fixed top-0 text-white w-full p-5 z-10 bg-gray-950">
         <Image 
           alt="Logo"
           src={Osaka} 
