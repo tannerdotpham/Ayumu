@@ -17,7 +17,7 @@ function Messages({messages=[], loading=false}: Props)
         <div className='flex flex-col space-y-10 flex-1 items-center justify-end pr-1'>
         <p className='text-gray-500 animate-pulse'>Start a conversation!</p>
         <ChevronDownCircle size={64} className='animate-bounce text-gray-500'/>
-        <LoadingMessages loading={loading} color="#ffffff" /> 
+        <LoadingMessages loading={loading}/> 
         <div className='max-w-3xl mx-auto'>
         </div>
       </div>
@@ -42,7 +42,7 @@ function Messages({messages=[], loading=false}: Props)
       </div>
       {messages.length > 0 && (
         <div className='mt-2 flex'>
-          <LoadingMessages loading={loading} color="#ffffff" />
+          <LoadingMessages loading={loading}/>
         </div>
       )}
     </div>

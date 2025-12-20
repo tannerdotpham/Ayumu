@@ -2,10 +2,10 @@
 
 import {BeatLoader} from 'react-spinners'
 
-function LoadingMessages({ loading, color = '#fff' }: { loading?: boolean; color?: string }) {
+function LoadingMessages({loading}: { loading?: boolean}) {
   return loading ? (
     <p className="message ml-auto">
-      <BeatLoader color={color} size={10} />
+      <BeatLoader color='white' />
     </p>
   ) : null;
 }

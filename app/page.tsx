@@ -7,6 +7,7 @@ import Recorder, { mimeType } from "@/components/Recorder";
 import { useRef, useState } from "react";
 import { useFormState } from "react-dom";
 import Osaka from '@/img/image.png'
+import TTS from "./api/voice/TTS";
 
 const initialState =
 {
@@ -83,8 +84,10 @@ export default function Home() {
         <button type="submit" hidden ref={submitButtonRef}/>
         <div className="fixed bottom-0 w-full overflow-hidden bg-black rounded=t-3xl">
           <Recorder uploadAudio={uploadAudio} loading={loading}/>
-
-          {/* Voice Synthesizer - voice of Siri */}
+          {/* Voice Synthesizer */}
+          <div>
+            <TTS />
+          </div>
 
         </div>
       </form>
