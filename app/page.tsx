@@ -58,9 +58,9 @@ export default function Home() {
       }
     }
   return (
-    <main className="bg-black h-screen overflow=y=auto">
+    <main className="bg-black h-screen flex flex-col overflow-hidden">
       {/* Header */}
-      <header className="flex justify-between fixed top-0 text-white w-full p-5">
+      <header className="flex justify-between fixed top-0 text-white w-full p-5 z-10 bg-black">
         <Image 
           alt="Logo"
           src={Osaka} 
@@ -75,8 +75,8 @@ export default function Home() {
       </header>
       {/* Form */}
 
-      <form className="flex flex-col bg-black">
-        <div className="flex-1 bg-gradient-to-b from-gray-950">
+      <form className="flex flex-col bg-black flex-1 min-h-0">
+        <div className="flex-1 bg-gradient-to-b from-gray-950 overflow-y-auto pt-20 pb-96">
           <Messages messages={messages} loading={loading}/>
         </div>
 

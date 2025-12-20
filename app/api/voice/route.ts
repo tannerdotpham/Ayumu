@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { AssemblyAI } from "assemblyai";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+// import { GoogleGenerativeAI } from "@google/generative-ai";
+import Groq from "groq-sdk";
 
 export const runtime = 'nodejs';
 
@@ -19,14 +20,27 @@ export async function POST(request: Request)
         audio_url: uploadUrl,
     });
     
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-    const model = genAI.getGenerativeModel({model: 'gemini-2.5-flash'});
-    const completion  = await model.generateContent({
-        contents: [{role: 'user', parts: [{text: transcription.text ?? ''}]}],
+    // const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+    // const model = genAI.getGenerativeModel({model: 'gemini-2.5-flash'});
+    // const completion  = await model.generateContent({
+    //     contents: [{role: 'user', parts: [{text: transcription.text ?? ''}]}],
+    // });
+    const groq = new Groq({
+        apiKey: process.env.GROQ_API_KEY!,
+    });
+    
+    const completion = await groq.chat.completions.create({
+        messages: [
+            {
+                role: 'user',
+                content: transcription.text ?? '',
+            },
+        ],
+        model: 'allam-2-7b',
     });
 
     return NextResponse.json({
         text: transcription.text,
-        reply: completion.response.text(),
+        reply: completion.choices[0]?.message?.content || '',
     });
 }
